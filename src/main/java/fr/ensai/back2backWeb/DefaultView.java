@@ -10,9 +10,11 @@ import java.io.OutputStream;
 import org.vaadin.marcus.PivotTable;
 
 import com.vaadin.navigator.View;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Composite;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.TextField;
@@ -20,52 +22,15 @@ import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-/**
- * @author Alejandro Duarte
- */
-public class DefaultView extends Composite implements View {
 
-//	ByteArrayOutputStream tempCSV;
-	//PivotTable pivotTable;
+public class DefaultView extends Composite implements View {
+	   
 	
-//	private ByteArrayOutputStream tempCSV;
-//    private PivotTable pivotTable;
-	
-	protected File tempFile;
-	  protected Tab table;
+	public String fileName;
     public DefaultView() {
     	
-//        Upload upload = new Upload();
-//        upload.setCaption("Click to upload");
-//        upload.setImmediateMode(false);
-        
-        
-//        final VerticalLayout layout = new VerticalLayout();
-//        layout.setSpacing(true);
-//        layout.setMargin(true);
-//        //setContent(layout);
 
-       
-        
-//        Upload upload = new Upload("Upload CSV",
-//                new Upload.Receiver() {
-//                    @Override
-//                    public OutputStream receiveUpload(String name, String mime) {
-//                         tempCSV = new ByteArrayOutputStream();
-//                        return tempCSV;
-//                    }
-//                }
-//        );
-//        upload.setImmediateMode(true);
-//
-//        upload.addFinishedListener(new Upload.FinishedListener() {
-//            @Override
-//            public void uploadFinished(Upload.FinishedEvent finishedEvent) {
-//                pivotTable.setData(tempCSV.toString());
-//            }
-//        });
-//
-//        pivotTable = new PivotTable();
+
         
     	
     	Upload upload = new Upload("Upload CSV File", new Upload.Receiver() {
@@ -79,42 +44,22 @@ public class DefaultView extends Composite implements View {
 
     	            This is quick and easy example, though.
     	            */
-    	          tempFile = File.createTempFile("temp", ".csv");
-    	          return new FileOutputStream(tempFile);
+    	         // tempFile = File.createTempFile("temp", ".csv");
+    	         // tempFile = File.createTempFile("/home/alka/Documents/wine", ".csv");
+    	        	File file = new File("data/"+filename);
+    	          //File tmp = File.
+    	         fileName = filename;
+    	         // return new FileOutputStream(tempFile);
+    	          return new FileOutputStream(file);
+    	          
+    	          
     	        } catch (IOException e) {
     	          e.printStackTrace();
     	          return null;
     	        }
     	      }
     	    });
-    	
-    	upload.addFinishedListener(new Upload.FinishedListener() {
-    	      @Override
-    	      public void uploadFinished(Upload.FinishedEvent finishedEvent) {
-    	        try {
-    	          /* Let's build a container from the CSV File */
-    	          FileReader reader = new FileReader(tempFile);
-    	          IndexedContainer indexedContainer = buildContainerFromCSV(reader);
-    	          reader.close();
-    	          tempFile.delete();
-
-    	          /* Finally, let's update the table with the container */
-    	          table.setCaption(finishedEvent.getFilename());
-    	          table.setContainerDataSource(indexedContainer);
-    	          table.setVisible(true);
-    	        } catch (IOException e) {
-    	          e.printStackTrace();
-    	        }
-    	      }
-    	    });
-    	
-
-//        layout.addComponents(upload, pivotTable);
-        
-//        final TextField path = new TextField();
-//        path.setCaption("Path to the csv file");
-//        path.setDescription("e.g. /data/iris.csv");
-        
+    	     
      
         RadioButtonGroup<String> header = new RadioButtonGroup<>("file has header");
         header.setItems("True", "False");
@@ -144,8 +89,10 @@ public class DefaultView extends Composite implements View {
         classif.setItems("True", "False");
         classif.addStyleName(ValoTheme.OPTIONGROUP_HORIZONTAL);
         
-        
-        VerticalLayout layout = new VerticalLayout(upload, pivotTable, header, targetName, hasRowname, sep, dec, catFeatures, classif);
+       Button btn = new Button("click me", e -> {
+    	   Notification.show(fileName, " uploaded!!", Notification.Type.HUMANIZED_MESSAGE);
+       } ) ;
+        VerticalLayout layout = new VerticalLayout(upload, header, targetName, hasRowname, sep, dec, catFeatures, classif, btn);
         
        // setCompositionRoot(new Label("This is the default view"));
         setCompositionRoot(layout);
