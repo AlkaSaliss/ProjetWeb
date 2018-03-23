@@ -133,7 +133,11 @@
 			<version>3.8.0</version>
 		</dependency> 
 		
-		
+		<dependency>
+   <groupId>org.vaadin.marcus</groupId>
+   <artifactId>pivottable</artifactId>
+   <version>0.1.1</version>
+</dependency>
 		
 	</dependencies>
 

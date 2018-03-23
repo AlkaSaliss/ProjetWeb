@@ -50,20 +50,15 @@ public class MyUI extends UI {
     	 Label title = new Label("Main Menu - Data settings");
          title.addStyleName(ValoTheme.MENU_TITLE);
 
-//         Button dataBtn = new Button("Data", e -> getNavigator().addView("", DataView.class));
-//         dataBtn.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
-//         Button dTreeBtn = new Button("Decision Tree", e -> getNavigator().navigateTo("decisonTree"));
          Button dTreeBtn = new Button("Decision Tree", e ->  getNavigator().navigateTo("decisonTree"));
          
          
          dTreeBtn.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
-//         dTreeBtn.setIcon(new ClassResource("data/dtree.png"));
-         dTreeBtn.addStyleName("fontBig");
          Button rfBtn = new Button("Random Forest", e -> getNavigator().navigateTo("randomForest"));
          rfBtn.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
 
          CssLayout menu = new CssLayout(title, dTreeBtn, rfBtn);
-         menu.setWidth("500px");
+         menu.setWidth("250px");
          
          
          menu.addStyleName(ValoTheme.MENU_ROOT);
