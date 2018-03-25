@@ -7,7 +7,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -58,11 +58,21 @@ public class MyUI extends UI {
 
 //		CssLayout viewContainer = new CssLayout();
 		VerticalLayout viewContainer = new VerticalLayout();
-		viewContainer.setWidth("800px");
-		//viewContainer.setComponentAlignment("dataView", Alignment.MIDDLE_LEFT);
+//		Panel viewContainer = new Panel();
+		
 
-		HorizontalLayout mainLayout = new HorizontalLayout(menu, viewContainer);
+//		HorizontalLayout mainLayout = new HorizontalLayout(menu, viewContainer);
+		GridLayout mainLayout = new GridLayout(2, 1);
+		//mainLayout.setWidth("1500px");
+		//mainLayout.setHeight("2000px");
 		mainLayout.setSizeFull();
+		mainLayout.addComponent(menu, 0, 0);
+		mainLayout.setComponentAlignment(menu, Alignment.TOP_LEFT);
+		mainLayout.addComponent(viewContainer, 1, 0);
+		mainLayout.setComponentAlignment(viewContainer, Alignment.TOP_RIGHT);
+		mainLayout.setColumnExpandRatio(1, 0.75f);
+		mainLayout.setRowExpandRatio(0, 1);
+		
 		setContent(mainLayout);
 
 		Navigator navigator = new Navigator(this, viewContainer);
@@ -70,6 +80,6 @@ public class MyUI extends UI {
 		navigator.addView("dataView", DataView.class);
 		navigator.addView("decisonTree", DecisionTreeView.class);
 		navigator.addView("randomForest", RandomForestView.class);
-
+		
 	}
 }

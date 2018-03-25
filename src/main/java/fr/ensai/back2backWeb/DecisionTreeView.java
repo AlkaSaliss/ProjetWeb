@@ -16,7 +16,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 import application.DecisionTree;
 import application.RDecisionTree;
-import application.SparkDecisionTree;
+//import application.SparkDecisionTree;
 import application.WekaDecisionTree;
 
 @SuppressWarnings("serial")
@@ -134,7 +134,6 @@ public class DecisionTreeView extends Composite implements View {
 		HorizontalLayout btns = new HorizontalLayout(submit, reset);
 		dtForm.addComponent(btns);
 		dtForm.addComponent(popup);
-
 		
 		Panel formPanel = new Panel("Decision Tree parameters");
 		dtForm.setMargin(true);
@@ -143,7 +142,8 @@ public class DecisionTreeView extends Composite implements View {
 		
 		Panel mainMain = new Panel();
 		mainMain.setContent(main);
-		mainMain.setHeight("1500px");
+		mainMain.setSizeFull();;
+		//mainMain.setHeight("1500px");
 //		setWidthUndefined();
 //		setHeightUndefined();
 		setCompositionRoot(mainMain);

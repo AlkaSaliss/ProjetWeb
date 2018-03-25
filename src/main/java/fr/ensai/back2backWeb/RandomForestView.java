@@ -15,7 +15,7 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 import application.RRandomForest;
 import application.RandomForest;
-import application.SparkRandomForest;
+//import application.SparkRandomForest;
 import application.WekaRandomForest;
 
 @SuppressWarnings("serial")
@@ -65,8 +65,16 @@ public class RandomForestView extends Composite implements View {
 		propTrain.setResolution(2);
 		nbIter.setValue((double) 1);
 		
+//		mtry.addStyleName("mystyle");
+//		ntrees.addStyleName("mystyle");
+//		sampsize.addStyleName("mystyle");
+//		propTrain.addStyleName("mystyle");
+//		nbIter.addStyleName("mystyle");
+//		maxBins.addStyleName("mystyle");
+//		seed.addStyleName("mystyle");
+//		featureSubsetStrategy.addStyleName("mystyle");
+//		gini.addStyleName("mystyle");
 		
-
 		mtry.setDescription("Default: depend on algorithm)");
 		ntrees.setDescription("Default: 500");
 		sampsize.setDescription("Default: 0.7");
@@ -107,6 +115,7 @@ public class RandomForestView extends Composite implements View {
 			}) ;
 			Button btnRF = new Button("Launch comparison",  e2 -> {
 				try {
+					//main.addComponent(getComparisonPanel());
 					main.addComponent(getComparisonPanel());
 					
 				} catch (Exception e1) {
@@ -137,13 +146,15 @@ public class RandomForestView extends Composite implements View {
 
 		rfForm.addComponent(popup);
 		Panel formPanel = new Panel("Random Forest parameters");
+		formPanel.setSizeFull();
 		rfForm.setMargin(true);
 
 		formPanel.setContent(rfForm);
 		main.addComponent(formPanel);
+		
 		Panel mainMain  = new Panel();
 		mainMain.setContent(main);
-		mainMain.setHeight("800px");
+		mainMain.setSizeFull();
 
 		setCompositionRoot(mainMain);
 	}
