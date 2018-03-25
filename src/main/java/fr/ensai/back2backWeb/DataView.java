@@ -149,14 +149,14 @@ public class DataView extends Composite implements View {
 			
 			//Notification.show(((MyUI)getUI()).data.getCatFeaturesNames().toString(), Notification.Type.HUMANIZED_MESSAGE);
 			popupContent.removeAllComponents();
-//			popupContent.addComponent(new Label("***Recap of data params***"));
-//			popupContent.addComponent(new Label("File: " + ((MyUI) getUI()).data.getPath()));
-//			popupContent.addComponent(new Label("Target variable: " + ((MyUI) getUI()).data.getTargetName()));
-//			popupContent.addComponent(new Label("File has header: " + ((MyUI) getUI()).data.getHeader()));
-//			popupContent.addComponent(new Label("File has row names: " + ((MyUI) getUI()).data.getHasRowNames()));
-//			popupContent.addComponent(new Label("Categorical Features: " + ((MyUI) getUI()).data.getCatFeaturesNames().toString()));
-//			popupContent.addComponent(new Label("File separator: " + ((MyUI) getUI()).data.getSep()));
-//			popupContent.addComponent(new Label("Decimal delimitor: " + ((MyUI) getUI()).data.getDec()));
+			popupContent.addComponent(new Label("***Recap of data params***"));
+			popupContent.addComponent(new Label("File: " + ((MyUI) getUI()).data.getPath()));
+			popupContent.addComponent(new Label("Target variable: " + ((MyUI) getUI()).data.getTargetName()));
+			popupContent.addComponent(new Label("File has header: " + ((MyUI) getUI()).data.getHeader()));
+			popupContent.addComponent(new Label("File has row names: " + ((MyUI) getUI()).data.getHasRowNames()));
+			popupContent.addComponent(new Label("Categorical Features: " + ((MyUI) getUI()).data.getCatFeaturesNames().toString()));
+			popupContent.addComponent(new Label("File separator: " + ((MyUI) getUI()).data.getSep()));
+			popupContent.addComponent(new Label("Decimal delimitor: " + ((MyUI) getUI()).data.getDec()));
 			
 			Button stay = new Button("Stay here", e2 -> {
 				popup.setPopupVisible(false);

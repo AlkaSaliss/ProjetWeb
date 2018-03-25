@@ -58,6 +58,7 @@ public class MyUI extends UI {
 
 //		CssLayout viewContainer = new CssLayout();
 		VerticalLayout viewContainer = new VerticalLayout();
+		viewContainer.setWidth("800px");
 		//viewContainer.setComponentAlignment("dataView", Alignment.MIDDLE_LEFT);
 
 		HorizontalLayout mainLayout = new HorizontalLayout(menu, viewContainer);

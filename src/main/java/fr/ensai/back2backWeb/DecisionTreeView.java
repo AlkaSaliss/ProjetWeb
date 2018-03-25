@@ -1,7 +1,5 @@
 package fr.ensai.back2backWeb;
 
-import java.util.Hashtable;
-
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Composite;
@@ -145,7 +143,7 @@ public class DecisionTreeView extends Composite implements View {
 		
 		Panel mainMain = new Panel();
 		mainMain.setContent(main);
-		mainMain.setSizeFull();;
+		mainMain.setHeight("1500px");
 //		setWidthUndefined();
 //		setHeightUndefined();
 		setCompositionRoot(mainMain);
@@ -162,11 +160,6 @@ public class DecisionTreeView extends Composite implements View {
 		// double resSpark = sdt.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
 		 double resWeka = wdt.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
 		 double resR = rdt.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
-		 
-		 Hashtable<String, Double> res = new Hashtable<>();
-		 res.put("R", resR);
-		// res.put("Spark", resSpark);
-		 res.put("Weka", resWeka);
 		 
 		 VerticalLayout resultLayout = new VerticalLayout(new Label("R : " + resR), new Label("Weka : " + resWeka), new Label("Spark : " + 00000000));
 		 p.setContent(resultLayout);

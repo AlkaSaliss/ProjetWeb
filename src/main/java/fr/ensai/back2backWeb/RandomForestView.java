@@ -1,7 +1,5 @@
 package fr.ensai.back2backWeb;
 
-import java.util.Hashtable;
-
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Composite;
@@ -15,12 +13,9 @@ import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.Slider;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-
-import application.RDecisionTree;
 import application.RRandomForest;
 import application.RandomForest;
 import application.SparkRandomForest;
-import application.WekaDecisionTree;
 import application.WekaRandomForest;
 
 @SuppressWarnings("serial")
@@ -33,7 +28,7 @@ public class RandomForestView extends Composite implements View {
 	Slider nbIter = new Slider("Iteration number for evaluation", 1, 1000);
 	Slider ntrees = new Slider("Number of trees", 1, 2500);
 	Slider mtry = new Slider("Percentage of features to select", 0, 1);
-	Slider sampsize = new Slider("Percentage of individuals to select ", 0, 1);
+	Slider sampsize = new Slider("Percentage of individuals to select ");
 	Slider maxDepth = new Slider("Maximum depth for each tree", 1, 100);
 	Slider maxBins = new Slider("Maximum number of bins", 1, 100);
 	Slider seed = new Slider("Seed", 1, 100);
@@ -61,6 +56,8 @@ public class RandomForestView extends Composite implements View {
 
 		mtry.setValue((double) 0);
 		ntrees.setValue((double) 500);
+		sampsize.setMin(0.2);
+		sampsize.setMax(1);
 		sampsize.setValue(0.7);
 		propTrain.setMin(0.05);
 		propTrain.setMax(1);
@@ -146,7 +143,7 @@ public class RandomForestView extends Composite implements View {
 		main.addComponent(formPanel);
 		Panel mainMain  = new Panel();
 		mainMain.setContent(main);
-		mainMain.setHeight("900px");
+		mainMain.setHeight("800px");
 
 		setCompositionRoot(mainMain);
 	}
@@ -162,11 +159,6 @@ public class RandomForestView extends Composite implements View {
 		// double resSpark = sdt.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
 		 double resWeka = wRf.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
 		 double resR = rRf.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
-		 
-		 Hashtable<String, Double> res = new Hashtable<>();
-		 res.put("R", resR);
-		// res.put("Spark", resSpark);
-		 res.put("Weka", resWeka);
 		 
 		 VerticalLayout resultLayout = new VerticalLayout(new Label("R : " + resR), new Label("Weka : " + resWeka), new Label("Spark : " + 00000000));
 		 p.setContent(resultLayout);
