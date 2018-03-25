@@ -3,7 +3,7 @@
 // Global variable overrides. Must be declared before importing Valo.
 
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
-$v-font-size: 16px;
+$v-font-size: 20px;
 //$v-font-weight: 300;
 $v-font-family: "Open Sans", sans-serif;
 
@@ -13,7 +13,7 @@ $v-font-family: "Open Sans", sans-serif;
 
 // Affects the color of some component elements, e.g Button, Panel title, etc
 //$v-background-color: hsl(210, 0%, 98%);
-$valo-menu-background-color: #433;
+//$valo-menu-background-color: #ffffff;
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
 //$v-app-background-color: $v-background-color;
 
@@ -35,10 +35,23 @@ $valo-menu-background-color: #433;
 @mixin mytheme {
   @include valo;
 
-  // Insert your own theme rules here
+	.v-panel{
+//      background-color: rgb(125,125,125);
+		border-style: solid;
+    	border-width: 5px;
+    	border-color: blue;
+    	width: 500px;
+      }  
+      
+      .lab{
+      	background-color: #e6f9ff;
+      	font-size: 20px;
+      }
 
-//	.fontBig .v-button-caption{
-//	font-size : 52px;
-//	} 
 
-}
+	
+	}
+
+
+
+

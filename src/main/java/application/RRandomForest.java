@@ -12,6 +12,12 @@ public class RRandomForest extends RModel {
 		super();
 	}
 	
+	public RRandomForest(Data data, RandomForest rf2, double propTrain) throws Exception {
+		this.setCompleteData(data);
+		this.split(propTrain); // initial split
+		this.rf = rf2;
+	}
+
 	// Methods
 	public void setCompleteData(Data d) throws Exception {
 		super.setCompleteData(d);

@@ -10,7 +10,8 @@ import javax.servlet.annotation.WebServlet;
  */
 public class WebConfig {
 
-    @WebServlet(urlPatterns = "/*", asyncSupported = true)
+    @SuppressWarnings("serial")
+	@WebServlet(urlPatterns = "/*", asyncSupported = true)
     @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
     public static class MyUIServlet extends VaadinServlet {
     }

@@ -16,6 +16,13 @@ public class WekaRandomForest extends WekaModel {
 //		this.sampsize = 70; //percentage of sample from 0 to 100
 	}
 	
+	public WekaRandomForest(Data d, application.RandomForest rf2, double propTrain) throws Exception {
+		
+		this.setCompleteData(d);
+		this.split(propTrain); // initial split
+		this.rf = rf2;
+	}
+	
 	// Methods
 	public void setCompleteData(Data d) throws Exception {
 		super.setCompleteData(d);

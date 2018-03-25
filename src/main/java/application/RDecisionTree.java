@@ -13,6 +13,7 @@ public class RDecisionTree extends RModel {
 	}
 	
 	public RDecisionTree(Data d, application.DecisionTree dt, double propTrain) throws Exception {
+		super();
 		this.setCompleteData(d);
 		this.split(propTrain); // initial split
 		this.dtree = dt;
