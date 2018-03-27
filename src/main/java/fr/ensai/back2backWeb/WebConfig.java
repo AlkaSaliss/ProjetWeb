@@ -6,7 +6,7 @@ import com.vaadin.server.VaadinServlet;
 import javax.servlet.annotation.WebServlet;
 
 /**
- * @author Alejandro Duarte
+ * 
  */
 public class WebConfig {
 

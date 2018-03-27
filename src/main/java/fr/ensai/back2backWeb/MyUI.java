@@ -42,7 +42,7 @@ public class MyUI extends UI {
 		Label title = new Label("Main Menu - Data settings");
 		title.addStyleName(ValoTheme.MENU_TITLE);
 
-		Button dataBtn = new Button("Data uploading", e -> getNavigator().navigateTo("dataView"));
+		Button dataBtn = new Button("Data uploading", e ->  getNavigator().navigateTo("dataView"));
 		dataBtn.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
 
 		Button dTreeBtn = new Button("Decision Tree", e -> getNavigator().navigateTo("decisonTree"));

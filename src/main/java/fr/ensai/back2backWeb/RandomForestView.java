@@ -9,13 +9,12 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.PopupView;
-import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.Slider;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 import application.RRandomForest;
 import application.RandomForest;
-//import application.SparkRandomForest;
+import application.SparkRandomForest;
 import application.WekaRandomForest;
 
 @SuppressWarnings("serial")
@@ -26,14 +25,15 @@ public class RandomForestView extends Composite implements View {
 	// Random forest params
 	Slider propTrain = new Slider("Training set proportion");
 	Slider nbIter = new Slider("Iteration number for evaluation", 1, 1000);
-	Slider ntrees = new Slider("Number of trees", 1, 2500);
-	Slider mtry = new Slider("Percentage of features to select", 0, 1);
+	Slider ntrees = new Slider("Number of trees", 1, 1000);
+	//Slider mtry = new Slider("Percentage of features to select", 0, 1);
+	Slider mtry = new Slider("Percentage of features to select");
 	Slider sampsize = new Slider("Percentage of individuals to select ");
-	Slider maxDepth = new Slider("Maximum depth for each tree", 1, 100);
+	Slider maxDepth = new Slider("Maximum depth for each tree", 1, 30);
 	Slider maxBins = new Slider("Maximum number of bins", 1, 100);
 	Slider seed = new Slider("Seed", 1, 100);
-	RadioButtonGroup<String> featureSubsetStrategy = new RadioButtonGroup<>("Feature subset strategy");
-	RadioButtonGroup<String> gini = new RadioButtonGroup<>("Gini");
+	//RadioButtonGroup<String> featureSubsetStrategy = new RadioButtonGroup<>("Feature subset strategy");
+	//RadioButtonGroup<String> gini = new RadioButtonGroup<>("Gini");
 	Button submit = new Button("Submit");
 	Button reset = new Button("Restore default");
 	
@@ -48,32 +48,24 @@ public class RandomForestView extends Composite implements View {
 
 		mtry.setResolution(2);
 		sampsize.setResolution(2);
-		gini.setItems("True", "False");
-		featureSubsetStrategy.setItems("auto", "Not auto");
-		gini.setSelectedItem("True");
-		featureSubsetStrategy.setSelectedItem("auto");
-		gini.addStyleName(ValoTheme.OPTIONGROUP_HORIZONTAL);
+	//	gini.setItems("True", "False");
+	//	featureSubsetStrategy.setItems("auto", "Not auto");
+	//	gini.setSelectedItem("True");
+	//	featureSubsetStrategy.setSelectedItem("auto");
+		//gini.addStyleName(ValoTheme.OPTIONGROUP_HORIZONTAL);
 
-		mtry.setValue((double) 0);
+		mtry.setValue((double) 0.75);
+		mtry.setMin(0.2);
+		mtry.setMax(1.0);
 		ntrees.setValue((double) 500);
 		sampsize.setMin(0.2);
 		sampsize.setMax(1);
 		sampsize.setValue(0.7);
-		propTrain.setMin(0.05);
+		propTrain.setMin(0.1);
 		propTrain.setMax(1);
 		propTrain.setValue(0.75);
 		propTrain.setResolution(2);
 		nbIter.setValue((double) 1);
-		
-//		mtry.addStyleName("mystyle");
-//		ntrees.addStyleName("mystyle");
-//		sampsize.addStyleName("mystyle");
-//		propTrain.addStyleName("mystyle");
-//		nbIter.addStyleName("mystyle");
-//		maxBins.addStyleName("mystyle");
-//		seed.addStyleName("mystyle");
-//		featureSubsetStrategy.addStyleName("mystyle");
-//		gini.addStyleName("mystyle");
 		
 		mtry.setDescription("Default: depend on algorithm)");
 		ntrees.setDescription("Default: 500");
@@ -82,7 +74,9 @@ public class RandomForestView extends Composite implements View {
 		nbIter.setDescription("Default: 1");
 		
 
-		rfForm.addComponents(propTrain, ntrees, mtry, sampsize, maxDepth, maxBins, seed, featureSubsetStrategy, gini, nbIter);
+		//rfForm.addComponents(propTrain, ntrees, mtry, sampsize, maxDepth, maxBins, seed, featureSubsetStrategy, gini, nbIter);
+		rfForm.addComponents(propTrain, ntrees, mtry, sampsize, maxDepth, maxBins, seed, nbIter);
+
 		rfForm.setCaption("Random Forest Parameters");
 		rfForm.addStyleName("rfForm");
 
@@ -92,10 +86,13 @@ public class RandomForestView extends Composite implements View {
 			rf.setMtry(mtry.getValue());
 			rf.setSampsize(sampsize.getValue());
 			rf.setMaxDepth(maxDepth.getValue().intValue());
-			rf.setMaxBins(maxBins.getValue().intValue());;
+			rf.setMaxBins(maxBins.getValue().intValue());
 			rf.setSeed(seed.getValue().intValue());
-			rf.setFeatureSubsetStrategy(featureSubsetStrategy.getValue());
-			rf.setGini(gini.getValue().equalsIgnoreCase("true"));
+			//rf.setFeatureSubsetStrategy(featureSubsetStrategy.getValue());
+			rf.setFeatureSubsetStrategy("auto");
+
+			//rf.setGini(gini.getValue().equalsIgnoreCase("true"));
+			rf.setGini(((MyUI) getUI()).data.isClassif());
 			
 			((MyUI) getUI()).rf = rf;
 			
@@ -131,7 +128,7 @@ public class RandomForestView extends Composite implements View {
 
 		reset.setStyleName(ValoTheme.BUTTON_DANGER);
 		reset.addClickListener(e -> {
-			mtry.setValue((double) 0);
+			mtry.setValue((double) 0.75);
 			ntrees.setValue((double) 500);
 			sampsize.setValue(0.7);
 			propTrain.setValue(0.75);
@@ -154,7 +151,8 @@ public class RandomForestView extends Composite implements View {
 		
 		Panel mainMain  = new Panel();
 		mainMain.setContent(main);
-		mainMain.setSizeFull();
+		//mainMain.setSizeFull();
+		mainMain.setHeight("800px");
 
 		setCompositionRoot(mainMain);
 	}
@@ -163,15 +161,15 @@ public class RandomForestView extends Composite implements View {
 	public Panel getComparisonPanel() throws Exception {
 		Panel p = new Panel("Comparison Results");
 		
-		//SparkRandomForest sparkRf = new SparkRandomForest(((MyUI)getUI()).data, ((MyUI)getUI()).rf, propTrain.getValue().doubleValue());		
+		SparkRandomForest sparkRf = new SparkRandomForest(((MyUI)getUI()).data, ((MyUI)getUI()).rf, propTrain.getValue().doubleValue());		
 		WekaRandomForest wRf = new WekaRandomForest(((MyUI)getUI()).data, ((MyUI)getUI()).rf, propTrain.getValue().doubleValue());
 		RRandomForest rRf = new RRandomForest(((MyUI)getUI()).data, ((MyUI)getUI()).rf, propTrain.getValue().doubleValue());
 		
-		// double resSpark = sdt.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
+		 double resSpark = sparkRf.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
 		 double resWeka = wRf.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
 		 double resR = rRf.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
 		 
-		 VerticalLayout resultLayout = new VerticalLayout(new Label("R : " + resR), new Label("Weka : " + resWeka), new Label("Spark : " + 00000000));
+		 VerticalLayout resultLayout = new VerticalLayout(new Label("R : " + resR), new Label("Weka : " + resWeka), new Label("Spark : " + resSpark));
 		 p.setContent(resultLayout);
 		 
 		 return p;

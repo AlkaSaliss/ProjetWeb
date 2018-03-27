@@ -12,7 +12,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang.WordUtils;
+
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Composite;
 import com.vaadin.ui.CssLayout;
@@ -86,6 +89,8 @@ public class DataView extends Composite implements View {
 		targetName.setCaption("Target variable name");
 		targetName.setDescription("The name is case sensitive");
 		targetName.setRequiredIndicatorVisible(true);
+		targetName.setPlaceholder("The name is case sensitive");
+		targetName.setWidth("300px");
 
 		hasRowname.setItems("True", "False");
 		hasRowname.setValue("False");
@@ -210,12 +215,24 @@ public class DataView extends Composite implements View {
 	}
 	
 	
+	@Override
+    public void enter(ViewChangeEvent event) {
+		if (((MyUI) getUI()).data != null) {
+			
+			header.setValue(WordUtils.capitalize(((MyUI) getUI()).data.getHeader()));
+			targetName.setValue(((MyUI) getUI()).data.getTargetName());
+			hasRowname.setValue(WordUtils.capitalize(((MyUI) getUI()).data.getHasRowNames()));
+			sep.setValue(((MyUI) getUI()).data.getSep());
+			dec.setValue(((MyUI) getUI()).data.getDec());
+			String cats = ((MyUI) getUI()).data.getCatFeaturesNames().toString();
+			cats = cats.substring(1, cats.length()-1);
+			catFeatures.setValue(cats);
+			String clasf = ((MyUI) getUI()).data.isClassif() ? "True":"False";
+			classif.setValue(clasf);
+			fileName = ((MyUI) getUI()).data.getPath().substring(5);
+		} 
+    }
 	
-	
-//	 @Override
-//	    public void attach() {
-//	            ((MyUI)this.getUI()).data = data;
-//	    }
 }
 
 // package fr.ensai.back2backWeb;

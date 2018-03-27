@@ -16,6 +16,8 @@ import org.apache.spark.sql.SQLContext;
 import java.io.File;
 import javax.script.ScriptException;
 import org.renjin.script.RenjinScriptEngine;
+import org.renjin.sexp.IntArrayVector;
+
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
 import weka.filters.Filter;
@@ -178,6 +180,10 @@ public class Data implements Serializable {
 		// factor one
 		if (this.classif) {
 			engine.eval("data[, targetName] <- as.factor(data[, targetName])");
+			//retrieve the number of classes of target variable and pass it to spark
+			engine.eval("numClass <- length(unique(data[, targetName]))");
+			int nClass = ((IntArrayVector) engine.eval("numClass")).asInt() ;
+			this.setNumClasses(nClass);
 		}
 
 		// Creating the needed formula (for most R models)

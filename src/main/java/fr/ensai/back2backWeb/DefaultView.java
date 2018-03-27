@@ -1,7 +1,6 @@
 package fr.ensai.back2backWeb;
 
 import java.io.File;
-
 import com.vaadin.navigator.View;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinService;
@@ -29,7 +28,9 @@ public class DefaultView extends Composite implements View {
     	Label lab = new Label("Welcome to Back2Back Testing App!!!");
     	lab.addStyleName("lab");
     	VerticalLayout layout = new VerticalLayout(lab, image);
+    	
         setCompositionRoot(layout);
         
     }
+    
 }

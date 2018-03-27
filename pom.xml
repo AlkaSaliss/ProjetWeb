@@ -147,10 +147,10 @@
 		</dependency> 
 		
 		<dependency>
-   <groupId>org.vaadin.marcus</groupId>
-   <artifactId>pivottable</artifactId>
-   <version>0.1.1</version>
-</dependency>
+		   <groupId>org.vaadin.marcus</groupId>
+		   <artifactId>pivottable</artifactId>
+		   <version>0.1.1</version>
+		</dependency>
 		
 	</dependencies>
 
