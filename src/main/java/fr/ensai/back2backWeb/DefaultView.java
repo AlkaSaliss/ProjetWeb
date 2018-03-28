@@ -24,7 +24,7 @@ public class DefaultView extends Composite implements View {
     	// Show the image in the application
     	Image image = new Image("", resource);
     	image.setWidth("500px");
-    	image.setHeight("250px");
+    	image.setHeight("250px");	
     	Label lab = new Label("Welcome to Back2Back Testing App!!!");
     	lab.addStyleName("lab");
     	VerticalLayout layout = new VerticalLayout(lab, image);
