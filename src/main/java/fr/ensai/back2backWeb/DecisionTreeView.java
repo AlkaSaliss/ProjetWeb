@@ -1,6 +1,7 @@
 package fr.ensai.back2backWeb;
 
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Composite;
 import com.vaadin.ui.CssLayout;
@@ -160,7 +161,11 @@ public class DecisionTreeView extends Composite implements View {
 		double resWeka = wdt.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
 		double resR = rdt.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
 		double resSpark = sdt.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
-
+		
+		((MyUI) getUI()).accRDT = resR;
+		((MyUI) getUI()).accWDT = resWeka;
+		((MyUI) getUI()).accSpDT = resSpark;
+		
 		VerticalLayout resultLayout = new VerticalLayout(new Label("R : " + resR), new Label("Weka : " + resWeka),
 				new Label("Spark : " + resSpark));
 		p.setContent(resultLayout);
@@ -168,5 +173,20 @@ public class DecisionTreeView extends Composite implements View {
 		return p;
 
 	}
+	
+	
+	@Override
+    public void enter(ViewChangeEvent event) {
+		if (((MyUI) getUI()).accRDT >= 0 && ((MyUI) getUI()).accSpDT >= 0 && ((MyUI) getUI()).accWDT >= 0) {
+			
+			Panel p = new Panel("Comparison Results");
+			
+			VerticalLayout resultLayout = new VerticalLayout(new Label("R : " + ((MyUI) getUI()).accRDT), new Label("Weka : " + ((MyUI) getUI()).accWDT),
+					new Label("Spark : " + ((MyUI) getUI()).accSpDT));
+			p.setContent(resultLayout);
+			main.addComponent(p);
+			
+		} 
+    }
 
 }

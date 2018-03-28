@@ -1,6 +1,7 @@
 package fr.ensai.back2backWeb;
 
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Composite;
 import com.vaadin.ui.CssLayout;
@@ -169,11 +170,31 @@ public class RandomForestView extends Composite implements View {
 		 double resWeka = wRf.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
 		 double resR = rRf.aggregateEval(nbIter.getValue().intValue(), propTrain.getValue());
 		 
+		 ((MyUI) getUI()).accRRF = resR;
+		 ((MyUI) getUI()).accWRF = resWeka;
+		 ((MyUI) getUI()).accSpRF = resSpark;
+		 
+		 
 		 VerticalLayout resultLayout = new VerticalLayout(new Label("R : " + resR), new Label("Weka : " + resWeka), new Label("Spark : " + resSpark));
 		 p.setContent(resultLayout);
 		 
 		 return p;
 		 
-		 
-	} 
+	}
+	
+	
+	@Override
+    public void enter(ViewChangeEvent event) {
+		if (((MyUI) getUI()).accRRF >= 0 && ((MyUI) getUI()).accWRF >= 0 && ((MyUI) getUI()).accSpRF >= 0) {
+			
+			Panel p = new Panel("Comparison Results");
+			
+			VerticalLayout resultLayout = new VerticalLayout(new Label("R : " + ((MyUI) getUI()).accRRF), new Label("Weka : " + ((MyUI) getUI()).accWRF),
+					new Label("Spark : " + ((MyUI) getUI()).accSpRF));
+			p.setContent(resultLayout);
+			main.addComponent(p);
+			
+		} 
+    }
+	
 }

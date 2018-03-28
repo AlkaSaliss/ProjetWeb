@@ -234,25 +234,3 @@ public class DataView extends Composite implements View {
     }
 	
 }
-
-// package fr.ensai.back2backWeb;
-//
-// import com.vaadin.navigator.View;
-// import com.vaadin.ui.Composite;
-// import com.vaadin.ui.Panel;
-//
-//
-// @SuppressWarnings("serial")
-// public class DataView extends Composite implements View {
-//
-//
-// //public DataForm form = new DataForm(this);
-//
-// public DataView() {
-// Panel main = new Panel("Data parameters");
-// //main.setContent(form);
-// setCompositionRoot(main);
-// }
-//
-//
-// }

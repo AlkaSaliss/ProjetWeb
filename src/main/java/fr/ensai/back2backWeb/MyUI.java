@@ -8,6 +8,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -36,12 +37,31 @@ public class MyUI extends UI {
 	public DecisionTree dtree;
 	public RandomForest rf;
 	
+	public double accRDT = -999;
+	public double accWDT = -999;
+	public double accSpDT = -999;
+	public double accRRF = -999;
+	public double accWRF = -999;
+	public double accSpRF = -999;
+	
+	
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 
-		Label title = new Label("Main Menu - Data settings");
+		Label title = new Label("Home");
+//		title.addStyleName(ValoTheme.MENU_TITLE);
+//		title.addContextClickListener(e -> {
+//			getNavigator().navigateTo("");
+//		});
 		title.addStyleName(ValoTheme.MENU_TITLE);
+		HorizontalLayout titleLayout = new HorizontalLayout();
+		
+		titleLayout.addComponent(title);
+		titleLayout.addLayoutClickListener( e -> {
+			 getNavigator().navigateTo("");
+		});
 
+		titleLayout.setWidth("250px");
 		Button dataBtn = new Button("Data uploading", e ->  getNavigator().navigateTo("dataView"));
 		dataBtn.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
 
@@ -51,7 +71,7 @@ public class MyUI extends UI {
 		Button rfBtn = new Button("Random Forest", e -> getNavigator().navigateTo("randomForest"));
 		rfBtn.addStyleNames(ValoTheme.BUTTON_LINK, ValoTheme.MENU_ITEM);
 
-		CssLayout menu = new CssLayout(title, dataBtn, dTreeBtn, rfBtn);
+		CssLayout menu = new CssLayout(titleLayout, dataBtn, dTreeBtn, rfBtn);
 		menu.setWidth("250px");
 
 		menu.addStyleName(ValoTheme.MENU_ROOT);
