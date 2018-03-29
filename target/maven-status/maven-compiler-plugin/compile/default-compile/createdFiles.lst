@@ -18,6 +18,5 @@ fr/ensai/back2backWeb/DefaultView.class
 application/WekaRandomForest.class
 application/Model.class
 fr/ensai/back2backWeb/DecisionTreeView.class
-application/Launch.class
 fr/ensai/back2backWeb/DataView$1.class
 application/RRandomForest.class
