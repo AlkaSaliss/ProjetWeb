@@ -1,20 +1,35 @@
-back2back
-==============
+Simple web-based interface for Back-To-Back Testing for machine learning algorithms
+===============
 
 Template for a simple Vaadin application that only requires a Servlet 3.0 container to run.
 
+Pre-requisites : vaadin plug-in install
+-----------------------
+In eclipse IDE, go to 'help' menu, and then select 'eclipse market'. In the search bar type 'vaadin', and finally click the install button and follow the instructions.
+For more detailed information, you can check this [tutorial for a quick introduction](https://www.youtube.com/watch?v=o93ofXBIkf8).
+
 
 Workflow
-========
+----------------
 
-To compile the entire project, run "mvn install".
+To run this application on your local machine, follow these steps:
 
-To run the application, run "mvn jetty:run" and open http://localhost:8080/ .
+* Clone the git repository : 'git clone https://github.com/AlkaSaliss/ProjetWeb.git'
+* Open the terminal where the git project is located and run the following command to comple the project: 'mvn install'
+* To run the application, run 'mvn jetty:run' and open 'http://localhost:8080/' . And have fun.;)
 
 To produce a deployable production mode WAR:
-- change productionMode to true in the servlet class configuration (nested in the UI class)
-- run "mvn clean package"
-- test the war file with "mvn jetty:run-war"
+
+* change productionMode to true in the servlet class 'WebConfig.java' (nested in the UI class).
+
+* run "mvn clean package".
+
+* test the war file with "mvn jetty:run-war"
+
+
+Advanced settings...
+====================
+
 
 Client-Side compilation
 -------------------------

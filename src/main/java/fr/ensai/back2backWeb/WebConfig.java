@@ -12,7 +12,8 @@ public class WebConfig {
 
     @SuppressWarnings("serial")
 	@WebServlet(urlPatterns = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+   // @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+    @VaadinServletConfiguration(ui = MyUI.class, productionMode = true)
     public static class MyUIServlet extends VaadinServlet {
     }
 
